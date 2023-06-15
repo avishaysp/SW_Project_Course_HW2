@@ -22,16 +22,19 @@ def get_input():
         k, max_iter, eps, file_path1, file_path2 = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]
     try:
         k = int(k)
-    except:
+    except Exception as e:
         print("Invalid number of clusters!")
+        sys.exit(1)
     try:
         max_iter = int(max_iter)
-    except:
+    except Exception as e:
         print("Invalid maximum iteration!")
+        sys.exit(1)
     try:
         eps = float(eps)
-    except:
+    except Exception as e:
         print("Invalid eps!")
+        sys.exit(1)
     assert 1 < max_iter < 1000, "Invalid maximum iteration!"
     vectors1 = pd.read_csv(file_path1)
     vectors2 = pd.read_csv(file_path2)
