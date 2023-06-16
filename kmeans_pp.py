@@ -66,7 +66,7 @@ def init_centroids(vectors: pd.DataFrame, k) -> pd.DataFrame:
 def select_vector(vectors: pd.DataFrame, centroids: pd.DataFrame):
     dist_to_closest = [calc_dist_to_closest(vectors.iloc[i], centroids) for i in vectors.index]
     sum_of_dist = sum(dist_to_closest)
-    weights = [dist_to_closest[i] / sum_of_dist for i in range(len(vectors))]
+    weights = [dist_to_closest[i] / sum_of_dist for i in range(len(vectors))] if sum_of_dist else [1] * len(vectors)
     return vectors.sample(weights=weights, n=1).iloc[0]
 
 
