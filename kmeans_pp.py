@@ -2,7 +2,7 @@ import math
 import numpy as np
 import pandas as pd
 import sys
-import mykmeanssp
+# import mykmeanssp
 
 DEFAULT_MAX_ITER = 300
 
@@ -17,6 +17,8 @@ def main():
 
 # parse the input data into 3 variable
 def get_input():
+    if len(sys.argv) == 0:
+        k, max_iter, eps =
     if len(sys.argv) == 3:
         k, max_iter, eps, file_path1, file_path2 = sys.argv[1], DEFAULT_MAX_ITER, sys.argv[2], sys.argv[3], sys.argv[4]
     else:
