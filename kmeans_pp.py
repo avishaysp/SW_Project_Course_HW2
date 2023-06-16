@@ -5,20 +5,24 @@ import sys
 # import mykmeanssp
 
 DEFAULT_MAX_ITER = 300
+np.random.seed(0)
 
 
-def main():
-    k, max_iter, eps, vectors = get_input()
-    centroids = init_centroids(vectors, k)
-    list_of_centroids = get_centroids_list(centroids)
-    print(list_of_centroids)
-    print(centroids)
-
+def main(bonus_run=False, k=1, vectors=None):
+    if not bonus_run:
+        k, max_iter, eps, vectors = get_input()
+    else:
+        max_iter, eps, vectors = 1000, 0.0, pd.DataFrame(vectors)
+    try:
+        centroids = init_centroids(vectors, k)
+        list_of_centroids = get_centroids_list(centroids)
+        return list_of_centroids
+    except Exception as e:
+        print("An Error Has Occurred")
+        sys.exit(1)
 
 # parse the input data into 3 variable
 def get_input():
-    if len(sys.argv) == 0:
-        k, max_iter, eps =
     if len(sys.argv) == 3:
         k, max_iter, eps, file_path1, file_path2 = sys.argv[1], DEFAULT_MAX_ITER, sys.argv[2], sys.argv[3], sys.argv[4]
     else:
@@ -70,6 +74,7 @@ def select_vector(vectors: pd.DataFrame, centroids: pd.DataFrame):
     dist_to_closest = [calc_dist_to_closest(vectors.iloc[i], centroids) for i in vectors.index]
     sum_of_dist = sum(dist_to_closest)
     weights = [dist_to_closest[i] / sum_of_dist for i in range(len(vectors))] if sum_of_dist else [1] * len(vectors)
+    # note that if a vector is already a centroid his weight will be zero
     return vectors.sample(weights=weights, n=1).iloc[0]
 
 
