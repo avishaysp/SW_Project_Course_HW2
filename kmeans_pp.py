@@ -2,6 +2,7 @@ import math
 import numpy as np
 import pandas as pd
 import sys
+import mykmeanssp
 
 DEFAULT_MAX_ITER = 300
 
