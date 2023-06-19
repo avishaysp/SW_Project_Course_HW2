@@ -1,6 +1,5 @@
 # define PY_SSIZE_T_CLEAN
 # include <Python.h>
-# include "kmeans.h"
 
 static void fit(){
     printf("%s", "fit");
