@@ -45,6 +45,7 @@ def get_input():
     vectors1.columns = column_names1
     vectors2.columns = column_names2
     vectors = pd.merge(vectors1, vectors2, on="column1", how="inner")
+    print(len(vectors))
     assert 1 < k < len(vectors), "Invalid number of clusters!"
     sorted_vectors = vectors.sort_values('column1', ascending=True)
     sorted_vectors_wo_key = sorted_vectors.drop('column1', axis=1)
