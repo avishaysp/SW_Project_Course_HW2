@@ -48,8 +48,8 @@ static PyObject* fit(PyObject *self, PyObject *args){
         return NULL;
     }
 
-    vectors = convertPyMatToCMat(*vectorsList, numberOfvectors, vectorsLength);
-    centers = convertPyMatToCMat(*centeroids, K, vectorsLength);
+    vectors = convertPyMatToCMat(&vectorsList, numberOfvectors, vectorsLength);
+    centers = convertPyMatToCMat(&centeroids, K, vectorsLength);
 
     // printf("%s", "***3***");
 
