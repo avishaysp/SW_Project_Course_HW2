@@ -31,8 +31,8 @@ static PyObject* fit(PyObject *self, PyObject *args){
     PyObject vectorsList;
     PyObject centeroids;
 
-    // double **vectors;
-    // double **centers;
+    double **vectors;
+    double **centers;
     // double **finalCenteroids;
 
     // PyObject* pyMatrix;
