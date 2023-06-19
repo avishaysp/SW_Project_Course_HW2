@@ -29,7 +29,6 @@ def main():
     first_diff = [None] + [inertia_val[i + 1] - inertia_val[i] for i in range(1, len(inertia_val) - 1)]
     second_diff = [None] + [first_diff[i + 1] - first_diff[i] for i in range(1, len(first_diff) - 1)]
     elbow_index = second_diff.index(max(second_diff[1:]))
-    print(elbow_index)
     plt.plot(inertia_val[1:])
     elbow_coords = (float(elbow_index), float(inertia_val[elbow_index + 1]))
     ax = plt.gca()
