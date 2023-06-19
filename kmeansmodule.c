@@ -1,46 +1,9 @@
-# define PY_SSIZE_T_CLEAN
 # include <Python.h>
-# include <kmeans.h>
+# include "kmeans.h"
 
-static PyObject* fit(PyObject *self, PyObject *args){
-    
-    int K, iter;
-    int numberOfvectors, vectorsLength;
-    double eps;
-    PyObject vectorsList;
-    PyObject centeroids;
+# define PY_SSIZE_T_CLEAN
 
-    double **vectors;
-    double **centers;
-    double **finalCenteroids;
-
-    PyObject* pyMatrix;
-
-
-    if(!PyArg_ParseTuple(args, "iiiidoo", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
-        return NULL; 
-    }
-
-    vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
-    centers = convertPyMatToCMat(centeroids, K, vectorsLength);
-
-    finalCenteroids = kMeans(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
-    
-    pyMatrix = Py_BuildValue("[");
-    for (int i = 0; i < rows; i++) {
-        PyObject* pyRow = Py_BuildValue("[");
-        for (int j = 0; j < cols; j++) {
-            PyObject* pyValue = Py_BuildValue("d", cMatrix[i][j]);
-            PyList_Append(pyRow, pyValue);
-            Py_DECREF(pyValue);
-        }
-        PyList_Append(pyMatrix, pyRow);
-        Py_DECREF(pyRow);
-    }
-    return pyMatrix;
-}
-
-double** convertPyMatToCMat(pyObject matrix, int row, int col){
+double** convertPyMatToCMat(PyObject matrix, int row, int col){
     int i;
     int j;
     double** mat;
@@ -58,8 +21,46 @@ double** convertPyMatToCMat(pyObject matrix, int row, int col){
         }
     }
     return mat;
-
 }
+
+static PyObject* fit(PyObject *self, PyObject *args){
+
+    int K, iter;
+    int numberOfvectors, vectorsLength;
+    double eps;
+    PyObject vectorsList;
+    PyObject centeroids;
+
+    double **vectors;
+    double **centers;
+    double **finalCenteroids;
+
+    PyObject* pyMatrix;
+
+
+    if(!PyArg_ParseTuple(args, "iiiidoo", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
+        return NULL;
+    }
+
+    vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
+    centers = convertPyMatToCMat(centeroids, K, vectorsLength);
+
+    finalCenteroids = kMeans(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
+
+    pyMatrix = Py_BuildValue("[");
+    for (int i = 0; i < rows; i++) {
+        PyObject* pyRow = Py_BuildValue("[");
+        for (int j = 0; j < cols; j++) {
+            PyObject* pyValue = Py_BuildValue("d", cMatrix[i][j]);
+            PyList_Append(pyRow, pyValue);
+            Py_DECREF(pyValue);
+        }
+        PyList_Append(pyMatrix, pyRow);
+        Py_DECREF(pyRow);
+    }
+    return pyMatrix;
+}
+
 
 static PyMethodDef kmeansMethods[] = {
     {"fit",
