@@ -47,7 +47,7 @@ static void fit(PyObject *self, PyObject *args){
 
     // printMat(finalCenteroids, K, vectorsLength);
 
-    // printf("%d", 5);
+    printf("%d", 5);
 
 }
 
