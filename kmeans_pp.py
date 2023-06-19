@@ -12,7 +12,6 @@ def main():
     centroids = init_centroids(vectors, K)
     list_of_vectors = get_python_list(vectors)
     list_of_centroids = get_python_list(centroids)
-    print(K, max_iter, len(list_of_vectors), len(list_of_vectors[0]), eps, list_of_vectors, list_of_centroids, sep="\n")
     x = kmeans.fit(K, max_iter, len(list_of_vectors), len(list_of_vectors[0]), eps, list_of_vectors, list_of_centroids)
     print(x)
     

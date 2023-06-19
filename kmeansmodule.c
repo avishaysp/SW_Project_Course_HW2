@@ -10,6 +10,10 @@ double** convertPyMatToCMat(PyObject matrix, int row, int col){
     PyObject* rowPy;
     PyObject* item;
 
+    printf("%d\n", row);
+    printf("%d\n", col);
+
+
     mat = (double**) malloc(row * sizeof(double*));
     for (i = 0; i < row; i++) {
         mat[i] = (double*)malloc(col * sizeof(double));
@@ -17,7 +21,8 @@ double** convertPyMatToCMat(PyObject matrix, int row, int col){
         rowPy = PyList_GetItem(&matrix, i);
         for (j = 0; j < col; j++) {
             item = PyList_GetItem(rowPy, j);
-            mat[i][j] = PyFloat_AsDouble(item);  
+            mat[i][j] = PyFloat_AsDouble(item);
+            printf("%d\n", mat[i][j]);
         }
     }
     return mat;
@@ -44,9 +49,6 @@ static PyObject* fit(PyObject *self, PyObject *args){
     if(!PyArg_ParseTuple(args, "iiiidOO", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
         return NULL;
     }
-
-    printf("%s", "***2***\n");
-
 
     vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
     centers = convertPyMatToCMat(centeroids, K, vectorsLength);
