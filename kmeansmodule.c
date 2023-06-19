@@ -34,9 +34,9 @@ static PyObject* fit(PyObject *self, PyObject *args){
     double **centers;
     double **finalCenteroids;
 
-    // PyObject* pyMatrix;
-    // PyObject* pyRow;
-    // PyObject* pyValue;
+    PyObject* pyMatrix;
+    PyObject* pyRow;
+    PyObject* pyValue;
 
     if(!PyArg_ParseTuple(args, "iiiidOO", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
         return NULL;
@@ -47,24 +47,24 @@ static PyObject* fit(PyObject *self, PyObject *args){
 
     finalCenteroids = kMeans1(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
     
-    // pyMatrix = PyList_New(K);  // Create a new Python list object for the rows
+    pyMatrix = PyList_New(K);  // Create a new Python list object for the rows
 
-    // if (pyMatrix) {
-    //     for (int i = 0; i < K; i++) {
-    //         pyRow = PyList_New(vectorsLength);  // Create a new Python list object for each row
+    if (pyMatrix) {
+        for (int i = 0; i < K; i++) {
+            pyRow = PyList_New(vectorsLength);  // Create a new Python list object for each row
 
-    //         if (pyRow) {
-    //             for (int j = 0; j < vectorsLength; j++) {
-    //                 pyValue = Py_BuildValue("d", finalCenteroids[i][j]);  // Convert C value to Python float
-    //                 PyList_SET_ITEM(pyRow, j, pyValue);  // Set the value in the Python row list
-    //             }
-    //         }
+            if (pyRow) {
+                for (int j = 0; j < vectorsLength; j++) {
+                    pyValue = Py_BuildValue("d", finalCenteroids[i][j]);  // Convert C value to Python float
+                    PyList_SET_ITEM(pyRow, j, pyValue);  // Set the value in the Python row list
+                }
+            }
 
-    //         PyList_SET_ITEM(pyMatrix, i, pyRow);  // Set the row list in the Python matrix list
-    //     }
-    // }
+            PyList_SET_ITEM(pyMatrix, i, pyRow);  // Set the row list in the Python matrix list
+        }
+    }
 
-    return Py_BuildValue("i", 5);
+    return pyMatrix;
 
 }
 
