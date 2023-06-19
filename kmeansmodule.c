@@ -45,7 +45,7 @@ static PyObject* fit(PyObject *self, PyObject *args){
 
     // finalCenteroids = kMeans1(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
     
-    printf("%s"," arrive here")
+    printf("%s", "arrive here");
     return Py_BuildValue("d", 3);
 
 }
