@@ -23,7 +23,7 @@ double** convertPyMatToCMat(PyObject matrix, int row, int col){
     return mat;
 }
 
-static void fit(PyObject *self, PyObject *args){
+static void fit(){
 
     // int K, iter;
     // int numberOfvectors, vectorsLength;
