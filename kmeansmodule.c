@@ -17,9 +17,13 @@ double** convertPyMatToCMat(PyObject* matrix, int row, int col){
         mat[i] = (double*)malloc(col * sizeof(double));
         printf("%s\n", "***3***");
         rowPy = PyList_GetItem(matrix, i);
+        printf("%s\n", "***4***");
         for (j = 0; j < col; j++) {
+            printf("%s\n", "***5***");
             item = PyList_GetItem(rowPy, j);
+            printf("%s\n", "***6***");
             mat[i][j] = PyFloat_AsDouble(item);
+            printf("%s\n", "***7***");
             printf("%f\n", mat[i][j]);
         }
     }
