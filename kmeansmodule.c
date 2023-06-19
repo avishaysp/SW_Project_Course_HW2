@@ -72,7 +72,7 @@ static PyObject* fit(PyObject *self, PyObject *args){
     //     }
     // }
 
-    return Py_BuilsValue("i", 5);
+    return Py_BuildValue("i", 5);
 
 }
 
