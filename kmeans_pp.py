@@ -1,28 +1,30 @@
 import math
+import traceback
+
 import numpy as np
 import pandas as pd
 import sys
-# import mykmeanssp
 
 DEFAULT_MAX_ITER = 300
 np.random.seed(0)
 
 
 def main(bonus_run=False, k=1, vectors=None):
+    k, max_iter, eps, vectors = get_input_bonus_wrap(bonus_run, k, vectors)
+    centroids = init_centroids(vectors, k)
+    list_of_centroids = get_centroids_list(centroids)
+    print(list_of_centroids)
+
+
+def get_input_bonus_wrap(bonus_run, k, vectors):
     if not bonus_run:
         k, max_iter, eps, vectors = get_input()
     else:
         max_iter, eps, vectors = 1000, 0.0, pd.DataFrame(vectors)
-    try:
-        centroids = init_centroids(vectors, k)
-        list_of_centroids = get_centroids_list(centroids)
-        return list_of_centroids
-    except Exception as e:
-        print("An Error Has Occurred")
-        sys.exit(1)
+    return k, max_iter, eps, vectors
 
-# parse the input data into 3 variable
 def get_input():
+    """parse the input data into 3 variable"""
     if len(sys.argv) == 3:
         k, max_iter, eps, file_path1, file_path2 = sys.argv[1], DEFAULT_MAX_ITER, sys.argv[2], sys.argv[3], sys.argv[4]
     else:
@@ -63,19 +65,24 @@ def get_centroids_list(centroids: pd.DataFrame):
 
 
 def init_centroids(vectors: pd.DataFrame, k) -> pd.DataFrame:
-    rand_index = np.random.choice(vectors.index)
-    centroids = pd.DataFrame(vectors.iloc[rand_index]).T
-    for i in range(k - 1):
-        centroids = pd.concat([centroids, pd.DataFrame(select_vector(vectors, centroids)).T])
+    try:
+        rand_index = np.random.choice(vectors.index)
+        centroids = pd.DataFrame(vectors.iloc[rand_index]).T
+        for i in range(k - 1):
+            centroids = pd.concat([centroids, pd.DataFrame(select_vector(vectors, centroids)).T])
+    except Exception as e:
+        print("An Error Has Occurred")
+        traceback.print_exc()
+        sys.exit(1)
     return centroids
 
 
 def select_vector(vectors: pd.DataFrame, centroids: pd.DataFrame):
-    dist_to_closest = [calc_dist_to_closest(vectors.iloc[i], centroids) for i in vectors.index]
+    dist_to_closest = [calc_dist_to_closest(vectors.loc[i], centroids) for i in vectors.index]
     sum_of_dist = sum(dist_to_closest)
-    weights = [dist_to_closest[i] / sum_of_dist for i in range(len(vectors))] if sum_of_dist else [1] * len(vectors)
-    # note that if a vector is already a centroid his weight will be zero
-    return vectors.sample(weights=weights, n=1).iloc[0]
+    weights = [dist_to_closest[i] / sum_of_dist for i in range(len(vectors))] if sum_of_dist != 0 else [1 / len(vectors)] * len(vectors)
+    selected_vector = np.random.choice(vectors.index, p=weights)
+    return vectors.loc[selected_vector]
 
 
 def calc_dist_to_closest(vector: pd.Series, centroids: pd.DataFrame):
