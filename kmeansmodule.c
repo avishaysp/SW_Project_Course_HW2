@@ -31,13 +31,13 @@ static PyObject* fit(PyObject *self, PyObject *args){
     PyObject vectorsList;
     PyObject centeroids;
 
-    double **vectors;
-    double **centers;
-    double **finalCenteroids;
+    // double **vectors;
+    // double **centers;
+    // double **finalCenteroids;
 
-    PyObject* pyMatrix;
-    PyObject* pyRow;
-    PyObject* pyValue;
+    // PyObject* pyMatrix;
+    // PyObject* pyRow;
+    // PyObject* pyValue;
 
     printf("%s", "***1***");
 
@@ -45,34 +45,34 @@ static PyObject* fit(PyObject *self, PyObject *args){
         return NULL;
     }
 
-    printf("%s", "***2***");
+    // printf("%s", "***2***");
 
 
-    vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
-    centers = convertPyMatToCMat(centeroids, K, vectorsLength);
+    // vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
+    // centers = convertPyMatToCMat(centeroids, K, vectorsLength);
 
-    printf("%s", "***3***");
+    // printf("%s", "***3***");
 
-    finalCenteroids = kMeans1(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
+    // finalCenteroids = kMeans1(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
     
-    pyMatrix = PyList_New(K);  // Create a new Python list object for the rows
+    // pyMatrix = PyList_New(K);  // Create a new Python list object for the rows
 
-    if (pyMatrix) {
-        for (int i = 0; i < K; i++) {
-            pyRow = PyList_New(vectorsLength);  // Create a new Python list object for each row
+    // if (pyMatrix) {
+    //     for (int i = 0; i < K; i++) {
+    //         pyRow = PyList_New(vectorsLength);  // Create a new Python list object for each row
 
-            if (pyRow) {
-                for (int j = 0; j < vectorsLength; j++) {
-                    pyValue = Py_BuildValue("d", finalCenteroids[i][j]);  // Convert C value to Python float
-                    PyList_SET_ITEM(pyRow, j, pyValue);  // Set the value in the Python row list
-                }
-            }
+    //         if (pyRow) {
+    //             for (int j = 0; j < vectorsLength; j++) {
+    //                 pyValue = Py_BuildValue("d", finalCenteroids[i][j]);  // Convert C value to Python float
+    //                 PyList_SET_ITEM(pyRow, j, pyValue);  // Set the value in the Python row list
+    //             }
+    //         }
 
-            PyList_SET_ITEM(pyMatrix, i, pyRow);  // Set the row list in the Python matrix list
-        }
-    }
+    //         PyList_SET_ITEM(pyMatrix, i, pyRow);  // Set the row list in the Python matrix list
+    //     }
+    // }
 
-    return pyMatrix;
+    return Py_BuilsValue("i", 5);
 
 }
 
