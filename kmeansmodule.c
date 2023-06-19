@@ -22,7 +22,7 @@ double** convertPyMatToCMat(PyObject matrix, int row, int col){
         for (j = 0; j < col; j++) {
             item = PyList_GetItem(rowPy, j);
             mat[i][j] = PyFloat_AsDouble(item);
-            printf("%d\n", mat[i][j]);
+            printf("%f\n", mat[i][j]);
         }
     }
     return mat;
