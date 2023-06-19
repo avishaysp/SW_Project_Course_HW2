@@ -49,6 +49,8 @@ static PyObject* fit(PyObject *self, PyObject *args){
     if(!PyArg_ParseTuple(args, "iiiidOO", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
         return NULL;
     }
+    
+    printf("%d", PyObject_length(vectorsList));
 
     vectors = convertPyMatToCMat(&vectorsList, numberOfvectors, vectorsLength);
     centers = convertPyMatToCMat(&centeroids, K, vectorsLength);
