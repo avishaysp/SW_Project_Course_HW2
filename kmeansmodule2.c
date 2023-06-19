@@ -3,7 +3,7 @@
 # include "kmeans.h"
 
 static void fit(){
-    printf("%s", fit);
+    printf("%s", "fit");
 }
 
 static PyMethodDef kmeansMethods[] = {
