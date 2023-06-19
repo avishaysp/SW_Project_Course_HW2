@@ -31,7 +31,7 @@ double averageOf(Centroid*, int);
 void freeRelatedVectors(Centroid*);
 double maxDelta(double*, int);
 double** getCentroidsSelfVectors(Centroid*, int);
-double** kMeans(int, int, int, int, double, double**, double**);
+double** kMeans1(int, int, int, int, double, double**, double**);
 
 
 #ifdef DEBUG

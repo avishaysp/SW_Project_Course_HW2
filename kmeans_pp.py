@@ -2,19 +2,18 @@ import math
 import numpy as np
 import pandas as pd
 import sys
-import mykmeanssp
+import mykmeanssp as kmeans
 
 DEFAULT_MAX_ITER = 300
 
 
 def main():
-    k, max_iter, eps, vectors = get_input()
-    centroids = init_centroids(vectors, k)
-    list_of_centroids = get_centroids_list(centroids)
-    print(list_of_centroids)
-    print(centroids)
-
-
+    K, max_iter, eps, vectors = get_input()
+    centroids = init_centroids(vectors, K)
+    list_of_vectors = get_python_list(vectors)
+    list_of_centroids = get_python_list(centroids)
+    kmeans.fit(K, max_iter, len(vectors), len(vectors.T), eps, list_of_vectors, list_of_centroids)
+    
 # parse the input data into 3 variable
 def get_input():
     if len(sys.argv) == 3:
@@ -52,8 +51,8 @@ def get_input():
     return k, max_iter, eps, sorted_vectors_wo_key
 
 
-def get_centroids_list(centroids: pd.DataFrame):
-    return centroids.values.tolist()
+def get_python_list(vectors: pd.DataFrame):
+    return vectors.values.tolist()
 
 
 def init_centroids(vectors: pd.DataFrame, k) -> pd.DataFrame:

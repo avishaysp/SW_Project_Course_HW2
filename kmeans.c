@@ -36,7 +36,7 @@ void printVector(double *vec, int vectorsLength) {
 }
 #endif
 
-double** kMeans(int K, int maxIter, int numberOfVectors, int vectorsLength, double eps, double** vectorsList, double** initCentroids) {
+double** kMeans1(int K, int maxIter, int numberOfVectors, int vectorsLength, double eps, double** vectorsList, double** initCentroids) {
     int i;
     int currentIteration = 0;
     double maxMiuK;
