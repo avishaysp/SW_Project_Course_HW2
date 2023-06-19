@@ -35,8 +35,8 @@ static PyObject* fit(PyObject *self, PyObject *args){
     int K, iter;
     int numberOfvectors, vectorsLength;
     double eps;
-    PyObject vectorsList;
-    PyObject centeroids;
+    PyObject *vectorsList;
+    PyObject *centeroids;
 
     double **vectors;
     double **centers;
