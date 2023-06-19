@@ -1,13 +1,13 @@
 # define PY_SSIZE_T_CLEAN
 # include <Python.h>
 
-static void fit(){
+static PyObject* fit(){
     printf("%s", "fit");
 }
 
 static PyMethodDef kmeansMethods[] = {
     {"fit",
-      fit,
+      (PyCFunction) fit,
       METH_VARARGS,           
       PyDoc_STR("Calculate the K centeroid of list of vector with max number of iteraion iter")}, 
     {NULL, NULL, 0, NULL}     
