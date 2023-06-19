@@ -39,13 +39,19 @@ static PyObject* fit(PyObject *self, PyObject *args){
     PyObject* pyRow;
     PyObject* pyValue;
 
+    printf("%s", "***1***");
 
     if(!PyArg_ParseTuple(args, "iiiidOO", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
         return NULL;
     }
 
+    printf("%s", "***2***");
+
+
     vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
     centers = convertPyMatToCMat(centeroids, K, vectorsLength);
+
+    printf("%s", "***3***");
 
     finalCenteroids = kMeans1(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
     
