@@ -23,31 +23,29 @@ double** convertPyMatToCMat(PyObject matrix, int row, int col){
     return mat;
 }
 
-static void fit(){
+static PyObject* fit(){
 
-    // int K, iter;
-    // int numberOfvectors, vectorsLength;
-    // double eps;
-    // PyObject vectorsList;
-    // PyObject centeroids;
+    int K, iter;
+    int numberOfvectors, vectorsLength;
+    double eps;
+    PyObject vectorsList;
+    PyObject centeroids;
 
-    // double **vectors;
-    // double **centers;
-    // double **finalCenteroids;
+    double **vectors;
+    double **centers;
+    double **finalCenteroids;
 
 
-    // if(!PyArg_ParseTuple(args, "iiiidOO", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
-    //     return;
-    // }
+    if(!PyArg_ParseTuple(args, "iiiidOO", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
+        return;
+    }
 
-    // vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
-    // centers = convertPyMatToCMat(centeroids, K, vectorsLength);
+    vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
+    centers = convertPyMatToCMat(centeroids, K, vectorsLength);
 
-    // finalCenteroids = kMeans1(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
-
-    // printMat(finalCenteroids, K, vectorsLength);
-
-    printf("%d", 5);
+    finalCenteroids = kMeans1(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
+    
+    return Py_BuildValue("d", 3)
 
 }
 
