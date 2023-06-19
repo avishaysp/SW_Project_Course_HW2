@@ -1,27 +1,26 @@
 # define PY_SSIZE_T_CLEAN
 # include <Python.h>
-# include "kmeans.c"
 
 
-double** convertPyMatToCMat(PyObject matrix, int row, int col){
-    int i;
-    int j;
-    double** mat;
-    PyObject* rowPy;
-    PyObject* item;
+// double** convertPyMatToCMat(PyObject matrix, int row, int col){
+//     int i;
+//     int j;
+//     double** mat;
+//     PyObject* rowPy;
+//     PyObject* item;
 
-    mat = (double**) malloc(row * sizeof(double*));
-    for (i = 0; i < row; i++) {
-        mat[i] = (double*)malloc(col * sizeof(double));
+//     mat = (double**) malloc(row * sizeof(double*));
+//     for (i = 0; i < row; i++) {
+//         mat[i] = (double*)malloc(col * sizeof(double));
 
-        rowPy = PyList_GetItem(&matrix, i);
-        for (j = 0; j < col; j++) {
-            item = PyList_GetItem(rowPy, j);
-            mat[i][j] = PyFloat_AsDouble(item);  
-        }
-    }
-    return mat;
-}
+//         rowPy = PyList_GetItem(&matrix, i);
+//         for (j = 0; j < col; j++) {
+//             item = PyList_GetItem(rowPy, j);
+//             mat[i][j] = PyFloat_AsDouble(item);  
+//         }
+//     }
+//     return mat;
+// }
 
 static PyObject* fit(PyObject *self, PyObject *args){
 
