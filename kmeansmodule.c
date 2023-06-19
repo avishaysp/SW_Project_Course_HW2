@@ -39,17 +39,17 @@ static PyObject* fit(PyObject *self, PyObject *args){
     // PyObject* pyRow;
     // PyObject* pyValue;
 
-    printf("%s", "***1***");
+    printf("%s", "***1***\n");
 
     if(!PyArg_ParseTuple(args, "iiiidOO", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
         return NULL;
     }
 
-    // printf("%s", "***2***");
+    printf("%s", "***2***\n");
 
 
-    // vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
-    // centers = convertPyMatToCMat(centeroids, K, vectorsLength);
+    vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
+    centers = convertPyMatToCMat(centeroids, K, vectorsLength);
 
     // printf("%s", "***3***");
 
