@@ -7,7 +7,7 @@ static void fit(){
 
 static PyMethodDef kmeansMethods[] = {
     {"fit",
-      (PyCFunction) fit,
+      fit,
       METH_VARARGS,           
       PyDoc_STR("Calculate the K centeroid of list of vector with max number of iteraion iter")}, 
     {NULL, NULL, 0, NULL}     
