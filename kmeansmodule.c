@@ -32,7 +32,7 @@ static PyObject* fit(PyObject *self, PyObject *args){
 
     double **vectors;
     double **centers;
-    // double **finalCenteroids;
+    double **finalCenteroids;
 
     // PyObject* pyMatrix;
     // PyObject* pyRow;
