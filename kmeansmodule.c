@@ -3,26 +3,6 @@
 # include "kmeans.c"
 
 
-double** convertPyMatToCMat(PyObject matrix, int row, int col){
-    int i;
-    int j;
-    double** mat;
-    PyObject* rowPy;
-    PyObject* item;
-
-    mat = (double**) malloc(row * sizeof(double*));
-    for (i = 0; i < row; i++) {
-        mat[i] = (double*)malloc(col * sizeof(double));
-
-        rowPy = PyList_GetItem(&matrix, i);
-        for (j = 0; j < col; j++) {
-            item = PyList_GetItem(rowPy, j);
-            mat[i][j] = PyFloat_AsDouble(item);  
-        }
-    }
-    return mat;
-}
-
 static void fit(PyObject *self, PyObject *args){
 
     int K, iter;
