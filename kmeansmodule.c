@@ -77,7 +77,3 @@ PyMODINIT_FUNC PyInit_mykmeanssp(void)
     }
     return m;
 }
-
-int main(void){
-    return 0;
-}
