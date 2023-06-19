@@ -14,12 +14,12 @@ double** convertPyMatToCMat(PyObject matrix, int row, int col){
     printf("%d\n", col);
 
 
-    mat = (double**) malloc(row * sizeof(double*));
-    for (i = 0; i < row; i++) {
-        mat[i] = (double*)malloc(col * sizeof(double));
+    mat = (double**) malloc(col * sizeof(double*));
+    for (i = 0; i < col; i++) {
+        mat[i] = (double*)malloc(row * sizeof(double));
 
         rowPy = PyList_GetItem(&matrix, i);
-        for (j = 0; j < col; j++) {
+        for (j = 0; j < row; j++) {
             item = PyList_GetItem(rowPy, j);
             mat[i][j] = PyFloat_AsDouble(item);
             printf("%f\n", mat[i][j]);
