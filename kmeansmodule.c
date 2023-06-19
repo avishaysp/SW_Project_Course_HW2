@@ -3,7 +3,7 @@
 # include "kmeans.h"
 
 
-double** convertPyMatToCMat(PyObject matrix, int row, int col){
+double** convertPyMatToCMat(PyObject* matrix, int row, int col){
     int i;
     int j;
     double** mat;
@@ -43,8 +43,6 @@ static PyObject* fit(PyObject *self, PyObject *args){
     // PyObject* pyMatrix;
     // PyObject* pyRow;
     // PyObject* pyValue;
-
-    printf("%s", "***1***\n");
 
     if(!PyArg_ParseTuple(args, "iiiidOO", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
         return NULL;
