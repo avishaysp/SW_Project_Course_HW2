@@ -1,5 +1,6 @@
 # define PY_SSIZE_T_CLEAN
 # include <Python.h>
+# include "kmeans.h"
 
 
 // double** convertPyMatToCMat(PyObject matrix, int row, int col){
