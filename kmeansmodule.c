@@ -23,7 +23,7 @@ double** convertPyMatToCMat(PyObject matrix, int row, int col){
     return mat;
 }
 
-static PyObject* fit(){
+static PyObject* fit(PyObject *self, PyObject *args){
 
     int K, iter;
     int numberOfvectors, vectorsLength;
@@ -37,7 +37,7 @@ static PyObject* fit(){
 
 
     if(!PyArg_ParseTuple(args, "iiiidOO", &K, &iter, &numberOfvectors, &vectorsLength, &eps, &vectorsList, &centeroids)) {
-        return;
+        return NULL;
     }
 
     vectors = convertPyMatToCMat(vectorsList, numberOfvectors, vectorsLength);
@@ -45,7 +45,7 @@ static PyObject* fit(){
 
     finalCenteroids = kMeans1(K, iter, numberOfvectors, vectorsLength, eps, vectors, centers);
     
-    return Py_BuildValue("d", 3)
+    return Py_BuildValue("d", 3);
 
 }
 
