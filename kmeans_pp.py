@@ -18,6 +18,7 @@ def main(bonus_run=False, k=1, vectors=None):
     if not bonus_run:
         print_selected_indices(centroids)
         print_centroids(result_centroids)
+        print()
     else:
         return list_of_centroids
 
@@ -86,7 +87,7 @@ def get_python_list(vectors: pd.DataFrame) -> list:
 def init_centroids(vectors: pd.DataFrame, k) -> pd.DataFrame:
     try:
         np.random.seed(0)
-        rand_index = np.random.choice(vectors.index.tolist())
+        rand_index = np.random.randint(0, len(vectors) - 1)
         centroids = pd.DataFrame(vectors.loc[rand_index]).T
         for i in range(k - 1):
             centroids = pd.concat([centroids, pd.DataFrame(select_vector(vectors, centroids)).T])
