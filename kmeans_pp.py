@@ -5,7 +5,7 @@ import sys
 import mykmeanssp as kmeans
 
 DEFAULT_MAX_ITER = 300
-np.random.seed(0)
+
 
 
 def main(bonus_run=False, k=1, vectors=None):
@@ -85,8 +85,9 @@ def get_python_list(vectors: pd.DataFrame) -> list:
 
 def init_centroids(vectors: pd.DataFrame, k) -> pd.DataFrame:
     try:
-        rand_index = np.random.choice(vectors.index)
-        centroids = pd.DataFrame(vectors.iloc[rand_index]).T
+        np.random.seed(0)
+        rand_index = np.random.choice(vectors.index.tolist())
+        centroids = pd.DataFrame(vectors.loc[rand_index]).T
         for i in range(k - 1):
             centroids = pd.concat([centroids, pd.DataFrame(select_vector(vectors, centroids)).T])
     except Exception as e:
