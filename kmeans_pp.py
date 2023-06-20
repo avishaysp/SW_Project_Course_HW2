@@ -13,11 +13,17 @@ np.random.seed(0)
 def main(bonus_run=False, k=1, vectors=None):
     k, max_iter, eps, vectors = get_input_bonus_wrap(bonus_run, k, vectors)
     centroids = init_centroids(vectors, k)
-    list_of_centroids = get_centroids_list(centroids)
+    print_selected_indecies(centroids)
+    list_of_centroids = get_python_list(centroids)
+    list_of_vectors = get_python_list(vectors)
     if bonus_run:
-        return list_of_centroids
+        kmeans.fit
     print(list_of_centroids)
 
+
+def print_selected_indecies(centeroids: pd.DataFrame):
+    index_list = list(map(str, centeroids.index))
+    print(','.join(index_list))
 
 def get_input_bonus_wrap(bonus_run, k, vectors):
     if not bonus_run:
