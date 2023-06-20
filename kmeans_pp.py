@@ -4,6 +4,7 @@ import traceback
 import numpy as np
 import pandas as pd
 import sys
+import mykmeanssp as kmeans
 
 DEFAULT_MAX_ITER = 300
 np.random.seed(0)
@@ -26,8 +27,7 @@ def get_input_bonus_wrap(bonus_run, k, vectors):
     return k, max_iter, eps, vectors
 
 def get_input():
-    """parse the input data into 3 variable"""
-    if len(sys.argv) == 3:
+    if len(sys.argv) == 5:
         k, max_iter, eps, file_path1, file_path2 = sys.argv[1], DEFAULT_MAX_ITER, sys.argv[2], sys.argv[3], sys.argv[4]
     else:
         k, max_iter, eps, file_path1, file_path2 = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]
@@ -63,8 +63,8 @@ def get_input():
     return k, max_iter, eps, sorted_vectors
 
 
-def get_centroids_list(centroids: pd.DataFrame):
-    return centroids.values.tolist()
+def get_python_list(vectors: pd.DataFrame):
+    return vectors.values.tolist()
 
 
 def init_centroids(vectors: pd.DataFrame, k) -> pd.DataFrame:
