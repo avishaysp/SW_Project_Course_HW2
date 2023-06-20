@@ -1,6 +1,4 @@
 import math
-import traceback
-
 import numpy as np
 import pandas as pd
 import sys
@@ -13,17 +11,28 @@ np.random.seed(0)
 def main(bonus_run=False, k=1, vectors=None):
     k, max_iter, eps, vectors = get_input_bonus_wrap(bonus_run, k, vectors)
     centroids = init_centroids(vectors, k)
-    print_selected_indecies(centroids)
+
     list_of_centroids = get_python_list(centroids)
     list_of_vectors = get_python_list(vectors)
-    if bonus_run:
-        kmeans.fit
-    print(list_of_centroids)
+    result_centroids = kmeans.fit(k, max_iter, len(list_of_vectors), len(list_of_vectors[0]), eps, list_of_vectors, list_of_centroids)
+    if not bonus_run:
+        print_selected_indices(centroids)
+        print_centroids(result_centroids)
+    else:
+        return list_of_centroids
 
 
-def print_selected_indecies(centeroids: pd.DataFrame):
+def print_selected_indices(centeroids: pd.DataFrame):
     index_list = list(map(str, centeroids.index))
-    print(','.join(index_list))
+    print(",".join(index_list))
+
+
+def print_centroids(centroids: list):
+    for centroid in centroids:
+        str_list = list(map(str, centroid))
+        str_list = ["%.4f" % float(x) for x in str_list]
+        print(",".join(str_list))
+
 
 def get_input_bonus_wrap(bonus_run, k, vectors):
     if not bonus_run:
@@ -31,6 +40,7 @@ def get_input_bonus_wrap(bonus_run, k, vectors):
     else:
         max_iter, eps, vectors = 1000, 0.0, pd.DataFrame(vectors)
     return k, max_iter, eps, vectors
+
 
 def get_input():
     if len(sys.argv) == 5:
@@ -69,7 +79,7 @@ def get_input():
     return k, max_iter, eps, sorted_vectors
 
 
-def get_python_list(vectors: pd.DataFrame):
+def get_python_list(vectors: pd.DataFrame) -> list:
     return vectors.values.tolist()
 
 
@@ -81,7 +91,6 @@ def init_centroids(vectors: pd.DataFrame, k) -> pd.DataFrame:
             centroids = pd.concat([centroids, pd.DataFrame(select_vector(vectors, centroids)).T])
     except Exception as e:
         print("An Error Has Occurred")
-        traceback.print_exc()
         sys.exit(1)
     return centroids
 
