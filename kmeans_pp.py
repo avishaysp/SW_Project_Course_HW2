@@ -87,10 +87,11 @@ def get_python_list(vectors: pd.DataFrame) -> list:
 def init_centroids(vectors: pd.DataFrame, k) -> pd.DataFrame:
     try:
         np.random.seed(0)
-        rand_index = np.random.randint(0, len(vectors) - 1)
+        rand_index = np.random.randint(0, len(vectors))
         centroids = pd.DataFrame(vectors.loc[rand_index]).T
         for i in range(k - 1):
-            centroids = pd.concat([centroids, pd.DataFrame(select_vector(vectors, centroids)).T])
+            selected_centroid = select_vector(vectors.drop(centroids.index), centroids)
+            centroids = pd.concat([centroids, selected_centroid.to_frame().T])
     except Exception as e:
         print("An Error Has Occurred")
         sys.exit(1)
@@ -98,25 +99,22 @@ def init_centroids(vectors: pd.DataFrame, k) -> pd.DataFrame:
 
 
 def select_vector(vectors: pd.DataFrame, centroids: pd.DataFrame):
-    dist_to_closest = [calc_dist_to_closest(vectors.loc[i], centroids) for i in vectors.index]
-    sum_of_dist = sum(dist_to_closest)
-    weights = [dist_to_closest[i] / sum_of_dist for i in range(len(vectors))] if sum_of_dist != 0 else [1 / len(vectors)] * len(vectors)
+    diff = vectors - centroids.values[np.argmin(np.linalg.norm(vectors.values[:, None] - centroids.values, axis=2), axis=1)]
+    dist_to_closest = np.sqrt((diff ** 2).sum(axis=1))
+    sum_of_dist = np.sum(dist_to_closest)
+    weights = dist_to_closest / sum_of_dist if sum_of_dist != 0 else np.full(len(vectors), 1 / len(vectors))
     selected_vector = np.random.choice(vectors.index, p=weights)
     return vectors.loc[selected_vector]
 
 
-def calc_dist_to_closest(vector: pd.Series, centroids: pd.DataFrame):
-    curr_min = math.inf
-    for i in centroids.index:
-        curr_min = min(curr_min, euclidean_dist(vector, centroids.loc[i]))
-    return curr_min
+def calc_dist_to_closest(vector: pd.Series, centroids: pd.DataFrame) -> float:
+    diff = centroids - vector
+    dists = np.sqrt((diff**2).sum(axis=1))
+    return dists.min()
 
 
-def euclidean_dist(vector1: pd.Series, vector2: pd.Series):
-    summer = 0
-    for c1, c2 in zip(vector1.index, vector2.index):
-        summer += (vector1.loc[c1] - vector2.loc[c2]) ** 2
-    return summer ** .5
+def euclidean_dist(vector1: pd.Series, vector2: pd.Series) -> float:
+    return np.sqrt(np.sum((vector1 - vector2)**2))
 
 
 if __name__ == "__main__":
