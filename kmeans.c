@@ -92,6 +92,7 @@ double** kMeans1(int K, int maxIter, int numberOfVectors, int vectorsLength, dou
         currentIteration++;
     } while (currentIteration < maxIter && maxMiuK >= eps);
     result = getCentroidsSelfVectors(centroids, K);
+    free(deltas);
     free(centroids);
     return result;
 }
