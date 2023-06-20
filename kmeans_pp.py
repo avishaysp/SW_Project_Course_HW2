@@ -20,7 +20,7 @@ def main(bonus_run=False, k=1, vectors=None):
         print_centroids(result_centroids)
         print()
     else:
-        return list_of_centroids
+        return result_centroids
 
 
 def print_selected_indices(centeroids: pd.DataFrame):
@@ -64,8 +64,8 @@ def get_input():
         print("Invalid eps!")
         sys.exit(1)
     assert 1 < max_iter < 1000, "Invalid maximum iteration!"
-    vectors1 = pd.read_csv(file_path1)
-    vectors2 = pd.read_csv(file_path2)
+    vectors1 = pd.read_csv(file_path1, header=None)
+    vectors2 = pd.read_csv(file_path2, header=None)
     num_columns1 = len(vectors1.columns)
     num_columns2 = len(vectors2.columns)
     column_names1 = [f'column{i + 1}' for i in range(num_columns1)]
