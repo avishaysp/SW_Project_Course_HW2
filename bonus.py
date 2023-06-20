@@ -41,7 +41,7 @@ def main():
     circle_radius = max((x1 - x0), (y1 - y0)) / 10  # adjust as needed
 
     # Add a circle
-    circle = Ellipse(elbow_coords, circle_radius * 2 * dx / dy, circle_radius * 2, color='gray', fill=False)
+    circle = Ellipse(elbow_coords, circle_radius * 2 * dx / dy, circle_radius * 2, color='gray', fill=False, linestyle="--")
     plt.gca().add_patch(circle)
     plt.savefig('elbow.png')
 
