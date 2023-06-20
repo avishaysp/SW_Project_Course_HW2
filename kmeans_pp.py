@@ -17,7 +17,8 @@ def main():
     
 # parse the input data into 3 variable
 def get_input():
-    if len(sys.argv) == 3:
+    print(len(sys.argv))
+    if len(sys.argv) == 5:
         k, max_iter, eps, file_path1, file_path2 = sys.argv[1], DEFAULT_MAX_ITER, sys.argv[2], sys.argv[3], sys.argv[4]
     else:
         k, max_iter, eps, file_path1, file_path2 = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]
