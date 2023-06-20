@@ -58,8 +58,9 @@ def get_input():
     vectors = pd.merge(vectors1, vectors2, on="column1", how="inner")
     assert 1 < k < len(vectors), "Invalid number of clusters!"
     sorted_vectors = vectors.sort_values('column1', ascending=True)
-    sorted_vectors_wo_key = sorted_vectors.drop('column1', axis=1)
-    return k, max_iter, eps, sorted_vectors_wo_key
+    sorted_vectors = sorted_vectors.set_index('column1')
+    sorted_vectors.index = sorted_vectors.index.astype(int)
+    return k, max_iter, eps, sorted_vectors
 
 
 def get_centroids_list(centroids: pd.DataFrame):
